@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="grid lg:grid-cols-3 gap-6 items-start">
+  <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border p-6">
+    <h1 class="text-2xl font-bold text-slate-900">✅ My Events</h1>
+    <p class="text-sm text-slate-500 mt-1">User: <b>{{ user }}</b></p>
+
+    {% if events|length == 0 %}
+      <div class="mt-5 p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
+        No events registered yet. Go to <a class="underline" href="/events?user={{ user }}">Events</a> and register.
+      </div>
+    {% else %}
+      <div class="mt-5 overflow-hidden rounded-2xl border">
+        <table class="w-full text-sm">
+          <thead class="bg-slate-50 border-b">
+            <tr>
+              <th class="text-left px-4 py-3 font-semibold text-slate-700">Event</th>
+              <th class="text-left px-4 py-3 font-semibold text-slate-700">Fee (₹)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for e in events %}
+              <tr class="border-b last:border-b-0 hover:bg-slate-50">
+                <td class="px-4 py-3">
+                  <p class="font-semibold text-slate-900">{{ e[0] }}</p>
+                  <p class="text-xs text-slate-500">Confirmed • Fest pass</p>
+                </td>
+                <td class="px-4 py-3 text-slate-800 font-medium">₹ {{ e[1] }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+
+    <a href="/checkout"
+       class="mt-5 inline-flex px-5 py-3 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700">
+      Proceed to Checkout →
+    </a>
+  </div>
+
+  <div class="bg-white rounded-2xl shadow-sm border p-6">
+    <h2 class="text-lg font-bold text-slate-900">Summary</h2>
+    <div class="mt-4 p-4 rounded-2xl bg-slate-50 border">
+      <p class="text-sm text-slate-600">Total Registered</p>
+      <p class="text-3xl font-extrabold text-slate-900">{{ events|length }}</p>
+    </div>
+
+    <div class="mt-4 p-4 rounded-2xl bg-slate-50 border text-sm text-slate-600 leading-relaxed">
+      This page intentionally contains a backend bottleneck for performance testing using Locust.
+    </div>
+  </div>
+</div>
+
+{% endblock %}
