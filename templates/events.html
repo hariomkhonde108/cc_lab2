@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="bg-white rounded-2xl shadow-sm border p-6">
+  <div class="flex items-start justify-between gap-4 flex-wrap">
+    <div>
+      <h1 class="text-2xl font-bold text-slate-900">🎪 Events</h1>
+      <p class="text-sm text-slate-500 mt-1">
+        Welcome <b>{{ user }}</b>. Register for events below.
+      </p>
+    </div>
+
+    <div class="flex gap-2 flex-wrap">
+      <a href="/my-events?user={{ user }}"
+         class="px-4 py-2 rounded-xl bg-black text-white font-medium text-sm hover:opacity-90">
+        View My Events →
+      </a>
+    </div>
+  </div>
+
+  <!-- Events Grid -->
+  <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {% for e in events %}
+      <div class="rounded-2xl border bg-slate-50 p-5 hover:bg-white hover:shadow-sm transition">
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-3 py-1 rounded-full bg-white border text-slate-700">
+            Event ID: <b>{{ e[0] }}</b>
+          </span>
+
+          <span class="text-xs px-3 py-1 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-800 font-semibold">
+            ₹ {{ e[2] }}
+          </span>
+        </div>
+
+        <h2 class="mt-3 text-lg font-bold text-slate-900">{{ e[1] }}</h2>
+
+        <p class="text-sm text-slate-600 mt-1">
+          Includes certificate • instant registration • limited seats
+        </p>
+
+        <a href="/register_event/{{ e[0] }}?user={{ user }}"
+           class="mt-4 block text-center px-4 py-2 rounded-xl bg-black text-white font-semibold hover:opacity-90">
+          Register
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Crash Button (Intentional Failure Demo) -->
+  <div class="mt-6 p-4 rounded-2xl bg-red-50 border border-red-200 text-red-800 text-sm">
+    <b>Crash Demo (Intentional):</b> Click below to simulate a monolith failure.
+    <div class="mt-3">
+      <a href="/register_event/404?user={{ user }}"
+         class="inline-flex px-4 py-2 rounded-xl bg-red-600 text-white font-semibold hover:bg-red-700">
+        Trigger Crash (event_id = 404)
+      </a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
