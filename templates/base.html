@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CC Fest Monolith</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-100">
+  <!-- Top Navbar -->
+  <nav class="bg-white shadow-sm border-b">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-xl bg-black text-white grid place-items-center font-bold">CC</div>
+        <div>
+          <p class="font-semibold text-slate-900 leading-none">Fest Monolith</p>
+          <p class="text-xs text-slate-500">FastAPI • SQLite • Locust</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 flex-wrap">
+        {% if user %}
+          <span class="text-xs px-3 py-1 rounded-full bg-slate-100 border text-slate-700">
+            Logged in as <b>{{ user }}</b>
+          </span>
+          <a href="/events?user={{ user }}" class="px-4 py-2 rounded-lg bg-black text-white text-sm font-medium hover:opacity-90">
+            Events
+          </a>
+          <a href="/my-events?user={{ user }}" class="px-4 py-2 rounded-lg bg-white border text-sm font-medium hover:bg-slate-50">
+            My Events
+          </a>
+          <a href="/checkout" class="px-4 py-2 rounded-lg bg-emerald-600 text-white text-sm font-medium hover:bg-emerald-700">
+            Checkout
+          </a>
+          <a href="/login" class="px-4 py-2 rounded-lg bg-white border text-sm font-medium hover:bg-slate-50">
+            Logout
+          </a>
+        {% else %}
+          <a href="/login" class="px-4 py-2 rounded-lg bg-black text-white text-sm font-medium hover:opacity-90">
+            Login
+          </a>
+          <a href="/register" class="px-4 py-2 rounded-lg bg-white border text-sm font-medium hover:bg-slate-50">
+            Create Account
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="max-w-6xl mx-auto px-4 pb-10 text-xs text-slate-500">
+    CC Week X • Monolithic Applications Lab
+  </footer>
+</body>
+</html>
